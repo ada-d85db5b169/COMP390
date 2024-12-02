@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  project:
+    name: COMP390
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Az`12345
+    url: jdbc:mysql://localhost:3306/comp390?serverTimezone=Europe/London&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      where-strategy: not_empty
+      insert-strategy: not_empty
+      update-strategy: not_null
+      logic-delete-value: 'DELETED'
+      logic-not-delete-value: 'NOT_DELETE'
+      logic-delete-field: 'del_flag'
+  configuration:
+    jdbc-type-for-null: 'null'
+    call-setters-on-nulls: true
+    shrink-whitespaces-in-sql: true
+
+logging:
+  level:
+    com.baomidou.mybatisplus: debug
+
+comp390:
+  jwt:
+    secret-key: secret-key
+    token-name: token
+    ttl: 7200000
