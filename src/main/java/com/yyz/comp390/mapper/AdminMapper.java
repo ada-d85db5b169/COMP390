@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface AdminMapper extends BaseMapper<User> {
 
-    @Select("select * from user where username = #{username} and del_flag = 'NOT_DELETE'")
-    User getByUserName(String username);
+    @Select("select count(*) from user where username = #{username}")
+    int getUserByUsername(String username);
 }

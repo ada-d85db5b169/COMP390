@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserDTO extends LonginDTO{
+public class UserDTO extends LoginDTO {
 
-    private String permission;
+    private String role;
 
 }

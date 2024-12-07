@@ -1,6 +1,5 @@
 package com.yyz.comp390.controller;
 
-import com.yyz.comp390.context.BaseContext;
 import com.yyz.comp390.entity.ApiResult;
 import com.yyz.comp390.entity.User;
 import com.yyz.comp390.entity.dto.UserDTO;
@@ -28,12 +27,6 @@ public class UserController {
     @Resource
     private JwtProperties jwtProperties;
 
-    @PostMapping("/createUser")
-    public ApiResult createUser(@RequestBody UserDTO userDTO) {
-        userService.createUser(userDTO);
-        return ApiResult.success();
-    }
-
     @PostMapping("/login")
     public ApiResult<LoginVO> login(@RequestBody UserDTO userDTO) {
         User user = userService.login(userDTO);
@@ -47,9 +40,10 @@ public class UserController {
         );
         LoginVO loginVO = new LoginVO();
         loginVO.setToken(token);
+        log.info(token);
         loginVO.setId(user.getId());
         loginVO.setUsername(user.getUsername());
-        loginVO.setPermission(user.getPermission());
+        loginVO.setRole(user.getRole());
         return ApiResult.success(loginVO);
     }
 

@@ -13,43 +13,23 @@ public class ApiResult<T> implements Serializable {
 
     public static <T> ApiResult<T> success() {
         ApiResult<T> result = new ApiResult<>();
-        result.setCode(200);
-        return result;
-    }
-
-    public static <T> ApiResult<T> success(Integer code) {
-        ApiResult<T> result = new ApiResult<>();
-        result.setCode(code);
+        result.code = 1;
         return result;
     }
 
     public static <T> ApiResult<T> success(T data) {
         ApiResult<T> result = new ApiResult<>();
-        result.setCode(200);
+        result.code = 1;
         result.setData(data);
         return result;
     }
 
-    public static <T> ApiResult<T> success(Integer code, T data) {
+    public static <T> ApiResult<T> error (String message) {
         ApiResult<T> result = new ApiResult<>();
-        result.setCode(code);
-        result.setData(data);
-        return result;
-    }
-
-    public static <T> ApiResult<T> error (Integer code, String message) {
-        ApiResult<T> result = new ApiResult<>();
-        result.setCode(code);
+        result.code = 0;
         result.setMessage(message);
         return result;
     }
 
-    public static <T> ApiResult<T> error (Integer code, String message, T data) {
-        ApiResult<T> result = new ApiResult<>();
-        result.setCode(code);
-        result.setMessage(message);
-        result.setData(data);
-        return result;
-    }
 
 }

@@ -2,6 +2,10 @@ server:
   port: 8080
 
 spring:
+  web:
+    resources:
+      add-mappings: true
+      static-locations: classpath:/META-INF/resources/, classpath:/resources, classpath:/static/, classpath:/public
   project:
     name: COMP390
   main:
@@ -12,6 +16,8 @@ spring:
     username: root
     password: Az`12345
     url: jdbc:mysql://localhost:3306/comp390?serverTimezone=Europe/London&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+  mvc:
+    static-path-pattern: /**
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
@@ -37,5 +43,5 @@ logging:
 comp390:
   jwt:
     secret-key: secret-key
-    token-name: token
+    token-name: Authorization
     ttl: 7200000

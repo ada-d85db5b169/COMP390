@@ -5,11 +5,13 @@ import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
+@Slf4j
 public class JwtInterceptor implements HandlerInterceptor {
 
     @Resource
@@ -24,6 +26,10 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         //1、从请求头中获取令牌
         String token = request.getHeader(jwtProperties.getTokenName());
+        if(token.startsWith("Bearer")) {
+            token = token.substring(7);
+        }
+        log.info("Intercepted token: {}", token);
 
         //2、校验令牌
         try {

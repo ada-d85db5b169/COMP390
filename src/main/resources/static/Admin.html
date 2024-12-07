@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="container">
+    <!-- 左侧菜单栏 -->
+    <aside class="sidebar">
+        <ul>
+            <li id="user-management" class="active">用户管理</li>
+            <li id="file-management">文件管理</li>
+            <li id="permission-management">权限管理</li>
+        </ul>
+    </aside>
+
+    <!-- 主内容区域 -->
+    <main class="content">
+        <div class="search-bar">
+            <!-- 查询条件 -->
+            <input type="text" id="username" placeholder="用户名">
+            <select id="role">
+                <option value="">全部角色</option>
+                <option value="CURATOR">Curator</option>
+                <option value="USER">User</option>
+            </select>
+            <input type="date" id="create-time-start">
+            <input type="date" id="create-time-end">
+            <input type="date" id="update-time-start">
+            <input type="date" id="update-time-end">
+            <select id="del-flag">
+                <option value="">是否删除</option>
+                <option value="1">已删除</option>
+                <option value="0">未删除</option>
+            </select>
+            <button id="search-button">搜索</button>
+        </div>
+
+        <!-- 查询结果 -->
+        <div class="result-bar">
+            <button id="delete-selected">批量删除</button>
+            <button id="modify-selected">修改用户</button>
+            <button id="add-user">新增用户</button>
+        </div>
+
+        <table id="user-table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                <th>ID</th>
+                <th>角色</th>
+                <th>用户名</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>删除状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 用户数据将在这里动态渲染 -->
+            </tbody>
+        </table>
+    </main>
+</div>
+
+<!-- 修改用户信息弹窗 -->
+<div class="modal" id="edit-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>修改用户信息</h3>
+        <form id="edit-form">
+            <label for="edit-username">用户名</label>
+            <input type="text" id="edit-username">
+            <label for="edit-role">角色</label>
+            <select id="edit-role">
+                <option value="CURATOR">Curator</option>
+                <option value="USER">User</option>
+            </select>
+            <label for="edit-password">密码</label>
+            <input type="password" id="edit-password">
+            <button type="button" id="edit-confirm">确认</button>
+            <button type="button" id="edit-cancel">取消</button>
+        </form>
+    </div>
+</div>
+
+<!-- 新增用户弹窗 -->
+<div class="modal" id="add-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>新增用户</h3>
+        <form id="add-form">
+            <label for="add-username">用户名</label>
+            <input type="text" id="add-username">
+            <label for="add-role">角色</label>
+            <select id="add-role">
+                <option value="CURATOR">Curator</option>
+                <option value="USER">User</option>
+            </select>
+            <label for="add-password">密码</label>
+            <input type="password" id="add-password">
+            <button type="button" id="add-confirm">确认</button>
+            <button type="button" id="add-cancel">取消</button>
+        </form>
+    </div>
+</div>
+<script src="request.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

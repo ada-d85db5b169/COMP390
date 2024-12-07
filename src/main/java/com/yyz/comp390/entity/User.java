@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class User {
 
     private Long id;
-    private String permission;
+    private String role;
     private String username;
     private String password;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
