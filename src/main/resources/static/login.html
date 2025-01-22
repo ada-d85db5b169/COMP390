@@ -30,11 +30,11 @@
                     localStorage.setItem('jwtToken', token);
                     console.log('Token saved', token)
                     if (role === 'ADMIN') {
-                        window.location.href = '/admin.html';
+                        window.location.href = '/admin/Admin.html';
                     } else if (role === 'CURATOR') {
-                        window.location.href = '/curator.html';
+                        window.location.href = '/curator/curator.html';
                     } else if (role === 'USER') {
-                        window.location.href = '/user.html';
+                        window.location.href = '/user/user.html';
                     } else {
                         alert('Unknown user!');
                     }

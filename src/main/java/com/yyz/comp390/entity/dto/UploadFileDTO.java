@@ -1,24 +1,19 @@
-package com.yyz.comp390.entity;
+package com.yyz.comp390.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class File implements Serializable {
-
-    private Long id;
+public class UploadFileDTO {
 
     private String filename;
 
     private String alias;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
@@ -29,4 +24,5 @@ public class File implements Serializable {
     private String permission;
 
     private Double epsilon;
+
 }

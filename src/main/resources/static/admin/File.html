@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File</title>
+    <link rel="stylesheet" href="file.css">
+</head>
+<body>
+<div class="container">
+    <!-- 左侧菜单栏 -->
+    <aside class="sidebar">
+        <ul>
+            <li id="user-management">
+                <a href="Admin.html">User</a>
+            </li>
+            <li id="file-management" class="active">
+                <a href="File.html">File</a>
+            </li>
+            <li id="permission-management">
+                <a href="Query.html">Query</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- 文件查询 -->
+    <main class="content">
+        <div class="search-bar">
+            <label for="filename">File name: </label>
+            <input type="text" id="filename" placeholder="File name">
+            <label for="creator">Creator name: </label>
+            <input type="text" id="creator" placeholder="Creator name">
+            <div class="date-range">
+                <label for="create-time-start">Create since:</label>
+                <input type="date" id="create-time-start">
+                <label for="create-time-end">Created before:</label>
+                <input type="date" id="create-time-end">
+            </div>
+            <label for="permission">Permission: </label>
+            <select id="permission">
+                <option value="YES">Yes</option>
+                <option value="NO">No</option>
+            </select>
+            <button id="search-button">Search</button>
+        </div>
+
+        <!--查询结果-->
+        <div class="result-bar">
+            <button id="new-button">New</button>
+            <button id="modify-selected">Edit</button>
+            <button id="delete-selected">Delete</button>
+        </div>
+
+        <table id="file-table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                <th>ID</th>
+                <th>Filename</th>
+                <th>Creator</th>
+                <th>Privacy Budget</th>
+                <th>Create time</th>
+                <th>Permission</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 文件数据将在这里动态渲染 -->
+            </tbody>
+        </table>
+    </main>
+</div>
+<!--上传文件弹窗-->
+<div class="modal" id="new-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Upload New File</h3>
+        <form id="new-form">
+            <label for="file-upload">Select CSV File: </label>
+            <input type="file" id="file-upload" accept=".csv" required>
+            <label for="new-privacyBudget">Privacy Budget: </label>
+            <input type="number" id="new-privacyBudget" step="0.01" required>
+            <label for="new-epsilon">Epsilon: </label>
+            <input type="number" id="new-epsilon" step="0.01" required>
+            <label for="new-permission">Permission: </label>
+            <select id="new-permission" required>
+                <option value="YES">Yes</option>
+                <option value="NO">No</option>
+            </select>
+            <button type="button" id="new-confirm">Upload</button>
+            <button type="button" id="new-cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+<!--编辑文件弹窗-->
+<div class="modal" id="edit-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Edit file settings</h3>
+        <form id="edit-form">
+            <label for="edit-filename">File name: </label>
+            <input type="text" id="edit-filename">
+            <label for="edit-epsilon">Epsilon: </label>
+            <input type="number" id="edit-epsilon">
+            <label for="edit-privacyBudget">Privacy budget: </label>
+            <input type="number" id="edit-privacyBudget">
+            <label for="edit-permission">Permission: </label>
+            <select id="edit-permission">
+                <option value="NO">No</option>
+                <option value="YES">Yes</option>
+            </select>
+            <button type="button" id="edit-confirm">Confirm</button>
+            <button type="button" id="edit-cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+<script src="file.js"></script>
+<script src="../request.js"></script>
+</body>
+</html>

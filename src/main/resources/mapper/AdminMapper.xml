@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyz.comp390.mapper.AdminMapper">
+    <select id="getUsers" parameterType="com.yyz.comp390.entity.dto.UserListDTO" resultType="com.yyz.comp390.entity.vo.UserListVO">
+        select id, role, username, create_time, update_time, del_flag from user
+        <where>
+            <if test="userDTO.username!=null and userDTO.username!=''">
+                and username like concat('%', #{userDTO.username}, '%')
+            </if>
+            <if test="userDTO.role!=null and userDTO.role!=''">
+                and role = #{userDTO.role}
+            </if>
+            <if test="userDTO.createTimeStart!=null">
+                and create_time &gt;= #{userDTO.createTimeStart,jdbcType=TIMESTAMP}
+            </if>
+            <if test="userDTO.createTimeEnd!=null">
+                and create_time &lt;= #{userDTO.createTimeEnd,jdbcType=TIMESTAMP}
+            </if>
+            <if test="userDTO.updateTimeStart!=null">
+                and update_time &gt;= #{userDTO.updateTimeStart,jdbcType=TIMESTAMP}
+            </if>
+            <if test="userDTO.updateTimeEnd!=null">
+                and update_time &lt;= #{userDTO.updateTimeEnd,jdbcType=TIMESTAMP}
+            </if>
+            <if test="userDTO.delFlag!=null and userDTO.delFlag!=''">
+                and del_flag = #{userDTO.delFlag}
+            </if>
+        </where>
+        order by id, del_flag desc
+    </select>
+    <update id="deleteUsers" parameterType="list">
+        update user set del_flag = 'DELETE'
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <select id="getUserIdsByUserName" parameterType="string" resultType="java.lang.Integer">
+        select id
+        from user
+        <where>
+            username like concat('%', #{username}, '%')
+        </where>
+        and del_flag = 'UN_DELETE'
+    </select>
+</mapper>

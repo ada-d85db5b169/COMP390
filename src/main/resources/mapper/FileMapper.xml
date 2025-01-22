@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyz.comp390.mapper.FileMapper">
+
+    <select id="getFiles" parameterType="com.yyz.comp390.entity.dto.GetFileDTO" resultType="com.yyz.comp390.entity.vo.GetFileVO">
+        select f.id, filename, username as creator, privacy_budget, create_time, permission
+        from file f
+        join (
+            select id ,username from user
+        ) t1 on f.create_id = t1.id
+        <where>
+            <if test="getFileDTO.filename!=null and getFileDTO.filename!=''">
+                and filename like concat('%', #{getFileDTO.filename}, '%')
+            </if>
+            <if test="idList!=null">
+                and f.id in
+                <foreach collection="idList" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="getFileDTO.createTimeStart!=null">
+                and f.create_time &gt;= #{getFileDTO.createTimeStart,jdbcType=TIMESTAMP}
+            </if>
+            <if test="getFileDTO.createTimeEnd!=null">
+                and f.create_time &lt;= #{getFileDTO.createTimeEnd,jdbcType=TIMESTAMP}
+            </if>
+            <if test="getFileDTO.permission!=null and getFileDTO.permission!=''">
+                and permission = #{getFileDTO.permission}
+            </if>
+        </where>
+    </select>
+    <select id="getFileAliasByIds" parameterType="list" resultType="java.lang.String">
+        select alias
+        from file
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

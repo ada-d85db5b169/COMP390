@@ -17,14 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 加载用户数据
 async function loadUserData() {
-    const params = {
-        username: document.getElementById('username').value,
-        role: document.getElementById('role').value,
-        createTimeStart: document.getElementById('create-time-start').value,
-        createTimeEnd: document.getElementById('create-time-end').value,
-        updateTimeStart: document.getElementById('update-time-start').value,
-        updateTimeEnd: document.getElementById('update-time-end').value,
-        delFlag: document.getElementById('del-flag').value
+    const userListDTO = {
+        username: document.getElementById('username')?.value|| null,
+        role: document.getElementById('role')?.value|| null,
+        createTimeStart: document.getElementById('create-time-start')?.value
+            ? formatDate(document.getElementById('create-time-start').value)
+            : null,
+        createTimeEnd: document.getElementById('create-time-end')?.value
+            ? formatDate(document.getElementById('create-time-end').value)
+            : null,
+        updateTimeStart: document.getElementById('update-time-start')?.value
+            ? formatDate(document.getElementById('update-time-start').value)
+            : null,
+        updateTimeEnd: document.getElementById('update-time-end')?.value
+            ? formatDate(document.getElementById('update-time-end').value)
+            : null,
+        delFlag: document.getElementById('del-flag')?.value|| null
     };
     try {
         const response = await fetchWithAuth('/admin/getAllUsers', {
@@ -32,18 +40,18 @@ async function loadUserData() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(params)
+            body: JSON.stringify(userListDTO)
         });
         const result = await response.json();
 
         if (result.code === 1) {
             renderUserTable(result.data);
         } else {
-            alert(result.message || '查询失败');
+            alert(result.message || 'Query failed, please contact admin.');
         }
     } catch (error) {
-        console.error('查询失败:', error);
-        alert('网络错误，请稍后重试！');
+        console.error('Query error:', error);
+        alert('Network error, please try again later.');
     }
 }
 
@@ -58,13 +66,24 @@ function renderUserTable(users) {
                 <td>${user.id}</td>
                 <td>${user.role}</td>
                 <td>${user.username}</td>
-                <td>${user.createTime}</td>
-                <td>${user.updateTime}</td>
-                <td>${user.delFlag === 1 ? '已删除' : '未删除'}</td>
+                <td>${formatDate(user.createTime)}</td>
+                <td>${formatDate(user.updateTime)}</td>
+                <td>${user.delFlag === 'DELETE' ? 'Deleted' : 'Not deleted'}</td>
             </tr>
         `;
         tableBody.innerHTML += row;
     });
+}
+
+function formatDate(date) {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    const seconds = String(d.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 function showAddModal() {
@@ -83,7 +102,7 @@ async function handleAddUser() {
     const role = document.getElementById('add-role').value;
     const password = document.getElementById('add-password').value;
     if (!username || !password) {
-        alert('用户名和密码不能为空！');
+        alert('Username and password cannot be empty!');
         return;
     }
 
@@ -97,24 +116,23 @@ async function handleAddUser() {
             },
             body: JSON.stringify({ username, role, password })
         });
-        const result = await response.code
-        if (result === 1) {
-            alert('新增成功');
-            // document.getElementById('add-modal').style.display = 'none';
+        const result = await response.json()
+        if (result.code === 1) {
+            alert('Create successfully');
             loadUserData(); // 刷新用户列表
         } else {
-            alert(result.message || '新增失败');
+            alert(result.message || 'Create failed');
         }
     } catch (error) {
-        console.error('新增失败:', error);
-        alert('网络错误，请稍后重试！');
+        console.error('Create failed:', error);
+        alert('Network error, please try again later.');
     }
 }
 
 function handleModify() {
     const selected = getSelectedUsers();
     if (selected.length !== 1) {
-        alert('请选择一个用户进行修改');
+        alert('Change one user per time.');
         return;
     }
 
@@ -126,7 +144,7 @@ function handleModify() {
 function handleDelete() {
     const selected = getSelectedUsers();
     if (selected.length === 0) {
-        alert('请选择要删除的用户');
+        alert('Please select a user to delete');
         return;
     }
 
@@ -141,30 +159,30 @@ function getSelectedUsers() {
 }
 
 // 删除用户
-async function deleteUsers(userIds) {
+async function deleteUsers(id) {
     try {
-        const response = await fetchWithAuth('/api/users/delete', {
+        const response = await fetchWithAuth('/admin/deleteUsers', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ ids: userIds })
+            body: JSON.stringify(id)
         });
         const result = await response.json();
         if (result.code === 1) {
-            alert('删除成功');
+            alert('Deleted');
             loadUserData();
         } else {
-            alert(result.message || '删除失败');
+            alert(result.message || 'Deletion failed');
         }
     } catch (error) {
-        console.error('删除失败:', error);
-        alert('网络错误，请稍后重试！');
+        console.error('Deletion failed:', error);
+        alert('Network error, please try again later.');
     }
 }
 
 // 显示编辑弹窗
-function showEditModal(userId) {
+function showEditModal(id) {
     document.getElementById('edit-modal').style.display = 'block';
 
     // 绑定编辑确认按钮事件
@@ -173,24 +191,24 @@ function showEditModal(userId) {
         const role = document.getElementById('edit-role').value;
         const password = document.getElementById('edit-password').value;
         try {
-            const response = await fetchWithAuth(`/api/users/${userId}/update`, {
+            const response = await fetchWithAuth(`/admin/editUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, role, password })
+                body: JSON.stringify({ id, username, role, password })
             });
             const result = await response.json();
             if (result.code === 1) {
-                alert('修改成功');
+                alert('Edit successfully');
                 document.getElementById('edit-modal').style.display = 'none';
                 loadUserData();
             } else {
-                alert(result.message || '修改失败');
+                alert(result.message || 'Edit failed');
             }
         } catch (error) {
-            console.error('修改失败:', error);
-            alert('网络错误，请稍后重试！');
+            console.error('Edit failed:', error);
+            alert('Network error, please try again later.');
         }
     };
 

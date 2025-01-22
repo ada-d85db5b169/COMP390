@@ -41,6 +41,8 @@ logging:
     com.baomidou.mybatisplus: debug
 
 comp390:
+  file:
+    download-path: C:/Users/张耀阳/Downloads
   jwt:
     secret-key: secret-key
     token-name: Authorization

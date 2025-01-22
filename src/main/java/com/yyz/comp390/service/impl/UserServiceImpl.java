@@ -1,7 +1,7 @@
 package com.yyz.comp390.service.impl;
 
 import com.yyz.comp390.entity.User;
-import com.yyz.comp390.entity.dto.UserDTO;
+import com.yyz.comp390.entity.dto.LoginDTO;
 import com.yyz.comp390.exception.LoginFailedException;
 import com.yyz.comp390.mapper.UserMapper;
 import com.yyz.comp390.service.UserService;
@@ -16,10 +16,10 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public User login(UserDTO userDTO) {
+    public User login(LoginDTO loginDTO) {
 
-        String username = userDTO.getUsername();
-        String password = userDTO.getPassword();
+        String username = loginDTO.getUsername();
+        String password = loginDTO.getPassword();
 
         User user = userMapper.getByUserName(username);
 

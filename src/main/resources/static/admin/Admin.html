@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="container">
+    <!-- 左侧菜单栏 -->
+    <aside class="sidebar">
+        <ul>
+            <li id="user-management" class="active">
+                <a href="Admin.html">User</a>
+            </li>
+            <li id="file-management">
+                <a href="File.html">File</a>
+             </li>
+            <li id="permission-management">
+                <a href="Query.html">Query</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- 主内容区域 -->
+    <main class="content">
+        <div class="search-bar">
+            <!-- 查询条件 -->
+            <label for="username">Username: </label>
+            <input type="text" id="username" placeholder="Username">
+            <label for="role">Select role: </label>
+            <select id="role">
+                <option value="">All</option>
+                <option value="CURATOR">Curator</option>
+                <option value="USER">User</option>
+            </select>
+            <div class="date-range">
+                <label for="create-time-start">Create since:</label>
+                <input type="date" id="create-time-start">
+                <label for="create-time-end">Created before:</label>
+                <input type="date" id="create-time-end">
+                <label for="update-time-start">Updated since:</label>
+                <input type="date" id="update-time-start">
+                <label for="update-time-end">Updated before:</label>
+                <input type="date" id="update-time-end">
+            </div>
+            <label for="del-flag">Deletion: </label>
+            <select id="del-flag">
+                <option value="NOT_DELETE">Not deleted</option>
+                <option value="DELETE">Deleted</option>
+            </select>
+            <button id="search-button">Search</button>
+        </div>
+
+        <!-- 查询结果 -->
+        <div class="result-bar">
+            <button id="add-user">New</button>
+            <button id="modify-selected">Edit</button>
+            <button id="delete-selected">Delete</button>
+        </div>
+
+        <table id="user-table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Username</th>
+                <th>Create time</th>
+                <th>Update time</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 用户数据将在这里动态渲染 -->
+            </tbody>
+        </table>
+    </main>
+</div>
+
+<!-- 修改用户信息弹窗 -->
+<div class="modal" id="edit-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Edit User Info</h3>
+        <form id="edit-form">
+            <label for="edit-username">Username</label>
+            <input type="text" id="edit-username">
+            <label for="edit-role">Role</label>
+            <select id="edit-role">
+                <option value="CURATOR">Curator</option>
+                <option value="USER">User</option>
+            </select>
+            <label for="edit-password">Password</label>
+            <input type="password" id="edit-password">
+            <button type="button" id="edit-confirm">Confirm</button>
+            <button type="button" id="edit-cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<!-- 新增用户弹窗 -->
+<div class="modal" id="add-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>New User</h3>
+        <form id="add-form">
+            <label for="add-username">Username</label>
+            <input type="text" id="add-username">
+            <label for="add-role">Role</label>
+            <select id="add-role">
+                <option value="CURATOR">Curator</option>
+                <option value="USER">User</option>
+            </select>
+            <label for="add-password">Password</label>
+            <input type="password" id="add-password">
+            <button type="button" id="add-confirm">Confirm</button>
+            <button type="button" id="add-cancel">Discard</button>
+        </form>
+    </div>
+</div>
+<script src="../request.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

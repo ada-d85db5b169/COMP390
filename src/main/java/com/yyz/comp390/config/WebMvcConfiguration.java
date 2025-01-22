@@ -1,11 +1,16 @@
-package com.yyz.comp390.jwt;
+package com.yyz.comp390.config;
 
+import com.yyz.comp390.jwt.JwtInterceptor;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
@@ -18,14 +23,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/admin/**")
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/curator/**")
+                .addPathPatterns("/file/**")
                 .excludePathPatterns(
                         "/user/login",
                         "/static/**",   // 确保静态资源路径被排除
                         "/**/*.html",   // 允许访问 HTML 文件
                         "/**/*.js",
                         "/**/*.css",
-                        "/**/*.png",
-                        "/**/*.jpg"
+                        "/login.html"
                 );
     }
 
@@ -37,4 +42,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .allowedHeaders("*");
     }
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(new JacksonConfig());
+        converters.add(0, converter);
+    }
+
 }

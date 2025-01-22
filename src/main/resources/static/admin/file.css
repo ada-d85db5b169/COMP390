@@ -30,8 +30,18 @@ body {
     cursor: pointer;
 }
 
+.sidebar ul li a {
+    text-decoration: none;
+    color: inherit; /* 保持文字颜色与父元素一致 */
+    display: block; /* 确保链接占据整个列表项区域 */
+}
+
 .sidebar ul li.active {
     background-color: #34495e;
+}
+
+.sidebar ul li:hover {
+    background-color: #3c5568;
 }
 
 .content {
