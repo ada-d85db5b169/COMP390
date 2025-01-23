@@ -39,7 +39,7 @@ async function loadFileData(){
         const result = await response.json();
 
         if(result.code === 1){
-            renderUserTable(result.data);
+            renderFileTable(result.data);
         } else {
             alert(result.message || 'Query failed, please contact admin.');
         }
@@ -49,7 +49,7 @@ async function loadFileData(){
     }
 }
 
-function renderUserTable(files) {
+function renderFileTable(files) {
     const tableBody = document.getElementById('file-table').querySelector('tbody');
     tableBody.innerHTML = '';
     files.forEach(file => {

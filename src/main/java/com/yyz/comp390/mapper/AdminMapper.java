@@ -29,6 +29,6 @@ public interface AdminMapper extends BaseMapper<User> {
 
     void deleteUsers(List<Long> ids);
 
-    List<Integer> getUserIdsByUserName(String username);
+    List<Long> getUserIdsByUserName(String username);
 
 }

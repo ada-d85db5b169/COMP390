@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm</title>
+    <link rel="stylesheet" href="algorithm.css">
+</head>
+<body>
+<div class="container">
+    <!-- 左侧菜单栏 -->
+    <aside class="sidebar">
+        <ul>
+            <li id="file-management">
+                <a href="File.html">File</a>
+            </li>
+            <li id="algorithm-management" class="active">
+                <a href="Algorithm.html">Algorithm</a>
+            </li>
+            <li id="permission-management">
+                <a href="Query.html">Query</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- 主内容区域 -->
+    <main class="content">
+        <div class="search-bar">
+            <!-- 查询条件 -->
+            <label for="algorithm-name">Algorithm name: </label>
+            <input type="text" id="algorithm-name" placeholder="Algorithm name">
+            <label for="algorithm-creator">Creator: </label>
+            <input type="text" id="algorithm-creator" placeholder="Creator">
+            <div class="date-range">
+                <label for="create-time-start">Create since: </label>
+                <input type="date" id="create-time-start">
+                <label for="create-time-end">Created before: </label>
+                <input type="date" id="create-time-end">
+            </div>
+            <label for="status">Status: </label>
+            <select id="status">
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
+            </select>
+            <button id="search-button">Search</button>
+        </div>
+
+        <!-- 查询结果 -->
+        <div class="result-bar">
+            <button id="add-algorithm">New</button>
+            <button id="modify-selected">Edit</button>
+            <button id="delete-selected">Delete</button>
+        </div>
+
+        <table id="algorithm-table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Creator</th>
+                <th>Create time</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 用户数据将在这里动态渲染 -->
+            </tbody>
+        </table>
+    </main>
+</div>
+
+<div class="modal" id="edit-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Edit algorithm settings</h3>
+        <form id="edit-form">
+            <label for="edit-algorithm-name">Algorithm name: </label>
+            <input type="text" id="edit-algorithm-name">
+            <label for="edit-description">Description: </label>
+            <input type="text" id="edit-description">
+            <label for="edit-function-name">Python function name: </label>
+            <input type="text" id="edit-function-name">
+            <label for="edit-status">Status: </label>
+            <select id="edit-status">
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
+            </select>
+            <button type="button" id="edit-confirm">Save</button>
+            <button type="button" id="edit-cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="add-modal" style="display: none;">
+    <div class="modal-content">
+        <h3>New algorithm</h3>
+        <form id="add-form">
+            <label for="add-algorithm-name">Algorithm name: </label>
+            <input type="text" id="add-algorithm-name">
+            <label for="add-description">Description: </label>
+            <input type="text" id="add-description">
+            <label for="add-function-name">Python function name: </label>
+            <input type="text" id="add-function-name">
+            <label for="add-status">Status: </label>
+            <select id="add-status">
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
+            </select>
+            <button type="button" id="add-confirm">Save</button>
+            <button type="button" id="add-cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script src="../request.js"></script>
+<script src="algorithm.js"></script>
+</body>
+

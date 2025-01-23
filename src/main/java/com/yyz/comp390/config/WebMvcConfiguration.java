@@ -24,6 +24,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/curator/**")
                 .addPathPatterns("/file/**")
+                .addPathPatterns("/algorithm/**")
                 .excludePathPatterns(
                         "/user/login",
                         "/static/**",   // 确保静态资源路径被排除

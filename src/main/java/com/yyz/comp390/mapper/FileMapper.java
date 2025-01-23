@@ -14,7 +14,7 @@ import java.util.List;
 
 @Mapper
 public interface FileMapper extends BaseMapper<File> {
-    List<GetFileVO> getFiles(@Param("idList") List<Integer> idList, @Param("getFileDTO") GetFileDTO getFileDTO);
+    List<GetFileVO> getFiles(@Param("idList") List<Long> idList, @Param("getFileDTO") GetFileDTO getFileDTO);
 
     @Update("update file set filename = #{editFileDTO.filename}, privacy_budget = #{editFileDTO.privacyBudget}, " +
             "epsilon = #{editFileDTO.epsilon}, permission = #{editFileDTO.permission}, " +

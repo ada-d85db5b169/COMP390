@@ -13,7 +13,7 @@ import org.springframework.util.DigestUtils;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     public User login(LoginDTO loginDTO) {

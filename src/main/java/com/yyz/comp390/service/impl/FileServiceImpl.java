@@ -1,7 +1,6 @@
 package com.yyz.comp390.service.impl;
 
 import com.yyz.comp390.controller.FileController;
-import com.yyz.comp390.entity.ApiResult;
 import com.yyz.comp390.entity.File;
 import com.yyz.comp390.entity.dto.EditFileDTO;
 import com.yyz.comp390.entity.dto.GetFileDTO;
@@ -29,7 +28,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<GetFileVO> getFiles(GetFileDTO getFileDTO) {
-        List<Integer> idList = adminMapper.getUserIdsByUserName(getFileDTO.getCreator());
+        List<Long> idList = adminMapper.getUserIdsByUserName(getFileDTO.getCreator());
         if(idList.isEmpty()){
             idList = null;
         }

@@ -6,7 +6,7 @@
     <select id="getFiles" parameterType="com.yyz.comp390.entity.dto.GetFileDTO" resultType="com.yyz.comp390.entity.vo.GetFileVO">
         select f.id, filename, username as creator, privacy_budget, create_time, permission
         from file f
-        join (
+        inner join (
             select id ,username from user
         ) t1 on f.create_id = t1.id
         <where>

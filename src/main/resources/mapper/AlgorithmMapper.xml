@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyz.comp390.mapper.AlgorithmMapper">
+
+    <select id="getAlgorithms" parameterType="com.yyz.comp390.entity.dto.GetAlgorithmDTO" resultType="com.yyz.comp390.entity.vo.GetAlgorithmVO">
+        select a.id, name, username as creator, description, function_name, create_time, status
+        from algorithm a 
+        inner join (
+            select id ,username from user
+        ) t1 on a.create_id = t1.id
+        <where>
+            <if test="getAlgorithmDTO.name!=null and getAlgorithmDTO.name!=''">
+                and name like concat('%', #{getAlgorithmDTO.name}, '%')
+            </if>
+            <if test="idList!=null">
+                and a.id in
+                <foreach collection="idList" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="getAlgorithmDTO.createTimeStart!=null">
+                and a.create_time &gt;= #{getAlgorithmDTO.createTimeStart,jdbcType=TIMESTAMP}
+            </if>
+            <if test="getAlgorithmDTO.createTimeEnd!=null">
+                and a.create_time &lt;= #{getAlgorithmDTO.createTimeEnd,jdbcType=TIMESTAMP}
+            </if>
+            <if test="getAlgorithmDTO.status!=null and getAlgorithmDTO.status!=''">
+                and a.status = #{getAlgorithmDTO.status}
+            </if>
+        </where>
+    </select>
+</mapper>

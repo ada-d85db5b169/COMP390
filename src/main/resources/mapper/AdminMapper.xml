@@ -36,7 +36,7 @@
             #{id}
         </foreach>
     </update>
-    <select id="getUserIdsByUserName" parameterType="string" resultType="java.lang.Integer">
+    <select id="getUserIdsByUserName" parameterType="string" resultType="java.lang.Long">
         select id
         from user
         <where>
