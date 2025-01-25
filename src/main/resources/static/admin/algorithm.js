@@ -81,6 +81,7 @@ function showNewNodal() {
 async function handleAddAlgorithm() {
     const name = document.getElementById('add-algorithm-name').value.trim();
     const description = document.getElementById('add-description').value;
+    const className = document.getElementById('add-class-name').value.trim();
     const functionName = document.getElementById('add-function-name').value.trim();
     const status = document.getElementById('add-status').value.trim();
 
@@ -96,7 +97,7 @@ async function handleAddAlgorithm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, description, functionName, status })
+            body: JSON.stringify({ name, description, className, functionName, status })
         });
         const result = await response.json()
         if (result.code === 1) {
@@ -111,7 +112,7 @@ async function handleAddAlgorithm() {
     }
 }
 
-function getSelectedFiles() {
+function getSelectedAlgorithms() {
     return Array.from(document.querySelectorAll('tbody input[type="checkbox"]:checked'))
         .map(input => input.dataset.id);
 }
@@ -130,6 +131,7 @@ function resetEditModal(){
     document.getElementById('edit-algorithm-name').value = '';
     document.getElementById('edit-description').value = '';
     document.getElementById('edit-function-name').value = '';
+    document.getElementById('edit-class-name').value = '';
     document.getElementById('edit-status').value = 'INACTIVE';
 }
 
@@ -145,11 +147,11 @@ async function showEditModal(id){
 
         if(result.code === 1){
             const algorithmData = result.data;
-
             document.getElementById('edit-algorithm-name').value = algorithmData.name;
             document.getElementById('edit-description').value = algorithmData.description;
             document.getElementById('edit-function-name').value = algorithmData.functionName;
             document.getElementById('edit-status').value = algorithmData.status;
+            document.getElementById('edit-class-name').value = algorithmData.className;
         } else {
             alert(result.message || 'Failed to fetch file details.');
         }
@@ -161,6 +163,7 @@ async function showEditModal(id){
     document.getElementById('edit-confirm').onclick = async () => {
         const name = document.getElementById('edit-algorithm-name').value.trim();
         const description = document.getElementById('edit-description').value;
+        const className = document.getElementById('edit-class-name').value.trim();
         const functionName = document.getElementById('edit-function-name').value.trim();
         const status = document.getElementById('edit-status').value.trim();
 
@@ -174,7 +177,7 @@ async function showEditModal(id){
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, name, description, functionName, status })
+                body: JSON.stringify({ id, name, description, className, functionName, status })
             });
             const result = await response.json();
             if(result.code === 1){
@@ -196,7 +199,7 @@ async function showEditModal(id){
 }
 
 function handleDelete() {
-    const selected = getSelectedFiles();
+    const selected = getSelectedAlgorithms();
     if(selected.length === 0){
         alert('Please select a user to delete');
         return;

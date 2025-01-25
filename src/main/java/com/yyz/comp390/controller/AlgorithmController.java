@@ -29,7 +29,8 @@ public class AlgorithmController {
 
     @PostMapping("/addAlgorithm")
     public ApiResult addAlgorithm(@RequestBody GetAlgorithmDTO algorithmDTO) {
-        return algorithmService.addAlgorithm(algorithmDTO);
+        algorithmService.addAlgorithm(algorithmDTO);
+        return ApiResult.success();
     }
 
     @PostMapping("/editAlgorithm")

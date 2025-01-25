@@ -25,4 +25,6 @@ public class UploadFileDTO {
 
     private Double epsilon;
 
+    private Double delta;
+
 }

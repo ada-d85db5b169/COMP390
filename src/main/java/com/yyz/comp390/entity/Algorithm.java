@@ -18,6 +18,8 @@ public class Algorithm {
 
     private String description;
 
+    private String className;
+
     private String functionName;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -32,12 +32,17 @@ public class FileServiceImpl implements FileService {
         if(idList.isEmpty()){
             idList = null;
         }
-        List<GetFileVO> getFileVOs = fileMapper.getFiles(idList, getFileDTO);
-        return getFileVOs;
+        if(getFileDTO.getPermission()==null){
+            getFileDTO.setPermission("YES");
+        }
+        return fileMapper.getFiles(idList, getFileDTO);
     }
 
     @Override
     public void editFiles(EditFileDTO editFileDTO) {
+        if(editFileDTO.getEpsilon() <= 0 || editFileDTO.getDelta() < 0){
+            throw new FileException("Epsilon must be positive and delta must be none negative!");
+        }
         fileMapper.editFile(editFileDTO);
     }
 
@@ -64,6 +69,9 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void uploadFile(File file) {
+        if(file.getEpsilon() <= 0 || file.getDelta() < 0){
+            throw new FileException("Epsilon and delta must be greater than 0");
+        }
         fileMapper.insert(file);
     }
 

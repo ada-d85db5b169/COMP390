@@ -67,7 +67,8 @@ public class FileController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("privacyBudget") Integer privacyBudget,
             @RequestParam("epsilon") Double epsilon,
-            @RequestParam("permission") String permission
+            @RequestParam("permission") String permission,
+            @RequestParam("delta") Double delta
     ){
         // If file is null or wrong format, return.
         if (file.isEmpty() || !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".csv")) {
@@ -98,6 +99,7 @@ public class FileController {
         fileEntity.setPrivacyBudget(privacyBudget);
         fileEntity.setPermission(permission);
         fileEntity.setEpsilon(epsilon);
+        fileEntity.setDelta(delta);
         fileService.uploadFile(fileEntity);
 
         return ApiResult.success();

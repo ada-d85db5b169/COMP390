@@ -29,4 +29,6 @@ public class File implements Serializable {
     private String permission;
 
     private Double epsilon;
+
+    private Double delta;
 }

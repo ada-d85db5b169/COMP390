@@ -14,7 +14,7 @@ public interface AlgorithmService {
 
     GetAlgorithmVO getAlgorithmById(Long id);
 
-    ApiResult addAlgorithm(GetAlgorithmDTO algorithmDTO);
+    void addAlgorithm(GetAlgorithmDTO algorithmDTO);
 
     ApiResult editAlgorithm(EditAlgorithmDTO editAlgorithmDTO);
 

@@ -11,6 +11,8 @@ public class EditAlgorithmDTO {
 
     private String description;
 
+    private String className;
+
     private String functionName;
 
     private String status;

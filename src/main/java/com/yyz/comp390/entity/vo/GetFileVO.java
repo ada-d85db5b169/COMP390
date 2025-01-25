@@ -19,4 +19,7 @@ public class GetFileVO extends GetFileDTO {
     private Integer privacyBudget;
 
     private Double epsilon;
+
+    private Double delta;
+
 }

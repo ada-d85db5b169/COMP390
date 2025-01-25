@@ -31,8 +31,10 @@ public class AlgorithmServiceImpl implements AlgorithmService {
         if(idList.isEmpty()){
             idList = null;
         }
-        List<GetAlgorithmVO> getAlgorithmVOs = algorithmMapper.getAlgorithms(idList, getAlgorithmDTO);
-        return getAlgorithmVOs;
+        if(getAlgorithmDTO.getStatus()==null){
+            getAlgorithmDTO.setStatus("ACTIVE");
+        }
+        return algorithmMapper.getAlgorithms(idList, getAlgorithmDTO);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
     }
 
     @Override
-    public ApiResult addAlgorithm(GetAlgorithmDTO algorithmDTO) {
+    public void addAlgorithm(GetAlgorithmDTO algorithmDTO) {
         Algorithm algorithm = new Algorithm();
         algorithm.setName(algorithmDTO.getName());
         algorithm.setDescription(algorithmDTO.getDescription());
@@ -50,7 +52,6 @@ public class AlgorithmServiceImpl implements AlgorithmService {
         algorithm.setCreateTime(LocalDateTime.now());
         algorithm.setStatus(algorithmDTO.getStatus());
         algorithmMapper.insert(algorithm);
-        return ApiResult.success();
     }
 
     @Override
