@@ -27,8 +27,4 @@ public class File implements Serializable {
     private Integer privacyBudget;
 
     private String permission;
-
-    private Double epsilon;
-
-    private Double delta;
 }

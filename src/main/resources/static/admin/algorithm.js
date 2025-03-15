@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 绑定搜索按钮点击事件
     document.getElementById('search-button').addEventListener('click', loadAlgorithmData);
 
-    // 绑定修改用户按钮
+    // 绑定修改算法按钮
     document.getElementById('modify-selected').addEventListener('click', handleEditAlgorithm);
 
     // 绑定批量删除按钮
@@ -118,7 +118,7 @@ function getSelectedAlgorithms() {
 }
 
 async function handleEditAlgorithm() {
-    const selected = getSelectedFiles();
+    const selected = getSelectedAlgorithms();
     if(selected.length !== 1){
         alert('Change one file per time.');
         return;
@@ -149,6 +149,7 @@ async function showEditModal(id){
             const algorithmData = result.data;
             document.getElementById('edit-algorithm-name').value = algorithmData.name;
             document.getElementById('edit-description').value = algorithmData.description;
+            document.getElementById('edit-class-name').value = algorithmData.className;
             document.getElementById('edit-function-name').value = algorithmData.functionName;
             document.getElementById('edit-status').value = algorithmData.status;
             document.getElementById('edit-class-name').value = algorithmData.className;

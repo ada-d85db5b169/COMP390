@@ -5,10 +5,9 @@ import com.yyz.comp390.entity.ApiResult;
 import com.yyz.comp390.entity.dto.QueryDTO;
 import com.yyz.comp390.service.QueryService;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/query")
@@ -22,4 +21,13 @@ public class QueryController {
         return ApiResult.success(queryService.query(queryDTO));
     }
 
+    @GetMapping("/getFileColumns/{id}")
+    public ApiResult<List<String>> getFileColumns(@PathVariable Long id) {
+        return ApiResult.success(queryService.getFileColumns(id));
+    }
+
+    @GetMapping("/getBudget/{id}")
+    public ApiResult<Double> getBudget(@PathVariable Long id) {
+        return ApiResult.success(queryService.getBudget(id));
+    }
 }

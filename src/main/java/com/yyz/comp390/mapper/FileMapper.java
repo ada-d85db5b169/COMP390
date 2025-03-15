@@ -16,20 +16,16 @@ public interface FileMapper extends BaseMapper<File> {
     List<GetFileVO> getFiles(@Param("idList") List<Long> idList, @Param("getFileDTO") GetFileDTO getFileDTO);
 
     @Update("update file set filename = #{editFileDTO.filename}, privacy_budget = #{editFileDTO.privacyBudget}, " +
-            "epsilon = #{editFileDTO.epsilon}, permission = #{editFileDTO.permission}, " +
-            "privacy_budget = #{editFileDTO.privacyBudget} where id = #{editFileDTO.id}")
+            "permission = #{editFileDTO.permission} where id = #{editFileDTO.id}")
     void editFile(@Param("editFileDTO") EditFileDTO editFileDTO);
 
     List<String> getFileAliasByIds(@Param("ids") List<Long> ids);
 
-    @Select("select filename, epsilon, delta, privacy_budget, permission from file where id = #{id}")
+    @Select("select filename, privacy_budget, permission from file where id = #{id}")
     GetFileVO getFileById(Long id);
 
     @Select("select * from file where id = #{id}")
     File getFullFileById(Long id);
-
-    @Update("update file set privacy_budget = privacy_budget-1 where id = #{id}")
-    void deductPrivacyBudgetById(Long id);
 
     @Select("select id, privacy_budget from file where permission = 'YES'")
     List<PrivacyBudgetKV> getAllPrivacyBudget();

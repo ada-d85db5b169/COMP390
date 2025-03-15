@@ -15,7 +15,7 @@ async function fetchWithAuth(url, options = {}) {
 
     // 处理 401 错误，令牌过期
     if (response.status === 401) {
-        alert('登录已过期，请重新登录');
+        alert('Login expired. Please login.');
         window.location.href = '/login.html'; // 跳转到登录页
     }
 

@@ -39,7 +39,7 @@ async function loadFileData(){
         const result = await response.json();
 
         if(result.code === 1){
-            renderFileTable(result.data);
+            renderUserTable(result.data);
         } else {
             alert(result.message || 'Query failed, please contact admin.');
         }
@@ -49,7 +49,7 @@ async function loadFileData(){
     }
 }
 
-function renderFileTable(files) {
+function renderUserTable(files) {
     const tableBody = document.getElementById('file-table').querySelector('tbody');
     tableBody.innerHTML = '';
     files.forEach(file => {
@@ -75,10 +75,9 @@ function showNewModal() {
     document.getElementById('new-confirm').onclick = async () => {
         const fileInput = document.getElementById('file-upload');
         const privacyBudget = document.getElementById('new-privacyBudget').value;
-        const epsilon = document.getElementById('new-epsilon').value;
         const permission = document.getElementById('new-permission').value;
 
-        if (!fileInput.files[0] || !privacyBudget || !epsilon || !permission) {
+        if (!fileInput.files[0] || !privacyBudget || !permission) {
             alert('All fields are required!');
             return;
         }
@@ -86,7 +85,6 @@ function showNewModal() {
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
         formData.append('privacyBudget', privacyBudget);
-        formData.append('epsilon', epsilon);
         formData.append('permission', permission);
 
         try {
@@ -131,7 +129,6 @@ async function handleEditFile() {
 
 function resetEditModal() {
     document.getElementById('edit-filename').value = '';
-    document.getElementById('edit-epsilon').value = '';
     document.getElementById('edit-privacyBudget').value = '';
     document.getElementById('edit-permission').value = 'NO';
 }
@@ -152,7 +149,6 @@ async function showEditModal(id){
 
             // 回显文件信息到表单
             document.getElementById('edit-filename').value = fileData.filename;
-            document.getElementById('edit-epsilon').value = fileData.epsilon;
             document.getElementById('edit-privacyBudget').value = fileData.privacyBudget;
             document.getElementById('edit-permission').value = fileData.permission;
         } else {
@@ -165,11 +161,10 @@ async function showEditModal(id){
 
     document.getElementById('edit-confirm').onclick = async () => {
         const filename = document.getElementById('edit-filename').value.trim();
-        const epsilon = document.getElementById('edit-epsilon').value;
         const permission = document.getElementById('edit-permission').value;
         const privacyBudget = document.getElementById('edit-privacyBudget').value;
-        if(!filename || !epsilon || !permission || !privacyBudget){
-            alert("File name, epsilon, and permission cannot be empty!");
+        if(!filename || !permission || !privacyBudget){
+            alert("File name and permission cannot be empty!");
             return;
         }
         try {
@@ -178,7 +173,7 @@ async function showEditModal(id){
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, filename, epsilon, permission, privacyBudget})
+                body: JSON.stringify({ id, filename, permission, privacyBudget})
             });
             const result = await response.json();
             if(result.code === 1){

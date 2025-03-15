@@ -17,7 +17,7 @@ import java.util.List;
 public interface AlgorithmMapper extends BaseMapper<Algorithm> {
     List<GetAlgorithmVO> getAlgorithms(@Param("idList") List<Long> idList, @Param("getAlgorithmDTO") GetAlgorithmDTO getAlgorithmDTO);
 
-    @Select("select name, description,class_name, function_name, status from algorithm")
+    @Select("select name, description, class_name, function_name, status from algorithm where id = #{id}")
     GetAlgorithmVO getAlgorithmById(Long id);
 
     @Update("update algorithm set name = #{editAlgorithmDTO.name}, description = #{editAlgorithmDTO.description}," +

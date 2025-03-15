@@ -14,6 +14,8 @@ public class GetAlgorithmVO {
 
     private String description;
 
+    private String className;
+
     private String functionName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

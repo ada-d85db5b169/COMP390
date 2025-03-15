@@ -9,10 +9,6 @@ public class EditFileDTO {
 
     private String filename;
 
-    private Double epsilon;
-
-    private Double delta;
-
     private Integer privacyBudget;
 
     private String permission;

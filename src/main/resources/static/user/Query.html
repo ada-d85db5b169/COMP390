@@ -11,15 +11,6 @@
     <!-- 左侧菜单栏 -->
     <aside class="sidebar">
         <ul>
-            <li id="user-management">
-                <a href="Admin.html">User</a>
-            </li>
-            <li id="file-management">
-                <a href="File.html">File</a>
-            </li>
-            <li id="algorithm-management">
-                <a href="Algorithm.html">Algorithm</a>
-            </li>
             <li id="query-management" class="active">
                 <a href="Query.html">Query</a>
             </li>
@@ -54,31 +45,6 @@
                 <h3>Algorithm Results:</h3>
                 <ul id="algorithm-results"></ul>
             </div>
-        </div>
-
-        <div id="privacy-budget-box" style="display: none;">
-            <strong>Remaining Privacy Budget:</strong>
-            <span id="privacy-budget-value">N/A</span>
-        </div>
-
-        <button id="toggle-conditional-query" style="display: none;">Conditional Query</button>
-        <div class="conditional-query" id="conditional-query-section">
-            <div id="column-filters"></div>
-            <button id="add-filter">Add Filter</button>
-            <div id="query-epsilon">
-                <label for="epsilon">Epsilon (0 ~ 1): </label>
-                <input type="number" min="0.01" max="1" step="0.1" id="epsilon">
-            </div>
-        </div>
-
-        <button id="toggle-parallel-query" style="display: none;">Parallel Composition</button>
-        <div class="parallel-query" id="parallel-query-section">
-            <div id="parallel-columnName">
-                <label for="columnName">Separate by column: </label>
-                <select id="columnName"></select>
-            </div>
-            <div id="column-subsets"></div>
-            <button id="add-subset">Add Subset</button>
         </div>
 
         <!-- 提交查询 -->

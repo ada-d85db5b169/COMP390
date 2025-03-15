@@ -1,6 +1,5 @@
 let selectedFileId = null;
 let selectedAlgorithmId = null;
-let columnNames = []
 
 document.getElementById('file-search-button').addEventListener('click', async () => {
     const filename = document.getElementById('file-name').value.trim();

@@ -4,15 +4,10 @@ import com.yyz.comp390.context.BaseContext;
 import com.yyz.comp390.entity.ApiResult;
 import com.yyz.comp390.entity.dto.EditFileDTO;
 import com.yyz.comp390.entity.dto.GetFileDTO;
-import com.yyz.comp390.entity.dto.UploadFileDTO;
 import com.yyz.comp390.entity.vo.GetFileVO;
-import com.yyz.comp390.jwt.JwtUtil;
 import com.yyz.comp390.service.FileService;
 import jakarta.annotation.Resource;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,9 +61,7 @@ public class FileController {
     public ApiResult uploadFile(
             @RequestParam("file") MultipartFile file,
             @RequestParam("privacyBudget") Integer privacyBudget,
-            @RequestParam("epsilon") Double epsilon,
-            @RequestParam("permission") String permission,
-            @RequestParam("delta") Double delta
+            @RequestParam("permission") String permission
     ){
         // If file is null or wrong format, return.
         if (file.isEmpty() || !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".csv")) {
@@ -98,8 +91,6 @@ public class FileController {
         fileEntity.setCreateId(id);
         fileEntity.setPrivacyBudget(privacyBudget);
         fileEntity.setPermission(permission);
-        fileEntity.setEpsilon(epsilon);
-        fileEntity.setDelta(delta);
         fileService.uploadFile(fileEntity);
 
         return ApiResult.success();

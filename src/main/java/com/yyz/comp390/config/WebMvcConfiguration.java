@@ -7,7 +7,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -27,8 +26,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/algorithm/**")
                 .excludePathPatterns(
                         "/user/login",
-                        "/static/**",   // 确保静态资源路径被排除
-                        "/**/*.html",   // 允许访问 HTML 文件
+                        "/static/**",
+                        "/**/*.html",
                         "/**/*.js",
                         "/**/*.css",
                         "/login.html"
@@ -38,7 +37,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080") // 替换为前端的域名
+                .allowedOrigins("http://localhost:8080")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowCredentials(true)
                 .allowedHeaders("*");

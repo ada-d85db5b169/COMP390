@@ -11,20 +11,63 @@
     <!-- 左侧菜单栏 -->
     <aside class="sidebar">
         <ul>
-            <li id="user-management" class="active">
-                <a href="Admin.html">User</a>
-            </li>
             <li id="file-management">
                 <a href="File.html">File</a>
             </li>
             <li id="algorithm-management">
                 <a href="Algorithm.html">Algorithm</a>
             </li>
-            <li id="permission-management">
+            <li id="query-management" class="active">
                 <a href="Query.html">Query</a>
             </li>
         </ul>
     </aside>
+
+    <!-- 主内容区域 -->
+    <main class="content">
+        <div class="search-bar">
+            <!-- 文件查询 -->
+            <div style="margin-bottom: 20px;">
+                <label for="file-name">File Name: </label>
+                <input type="text" id="file-name" placeholder="Enter file name">
+                <button id="file-search-button">Search File</button>
+            </div>
+
+            <!-- 算法查询 -->
+            <div>
+                <label for="algorithm-name">Algorithm Name: </label>
+                <input type="text" id="algorithm-name" placeholder="Enter algorithm name">
+                <button id="algorithm-search-button">Search Algorithm</button>
+            </div>
+        </div>
+
+        <!-- 查询结果展示 -->
+        <div class="result-container">
+            <div class="result-box" id="file-result-box">
+                <h3>File Results:</h3>
+                <ul id="file-results"></ul>
+            </div>
+            <div class="result-box" id="algorithm-result-box">
+                <h3>Algorithm Results:</h3>
+                <ul id="algorithm-results"></ul>
+            </div>
+        </div>
+
+        <!-- 提交查询 -->
+        <div style="margin-top: 20px; text-align: center;">
+            <button id="submit-query-button" style="padding: 10px 20px; font-size: 16px;">Submit Query</button>
+        </div>
+
+        <!-- 查询结果展示 -->
+        <div class="result-bar">
+            <h3>Analysis Result:</h3>
+            <div id="output" style="border: 1px solid #ddd; padding: 10px; min-height: 200px; background: #f9f9f9; overflow: auto;">
+                <!-- 结果将在这里动态渲染 -->
+            </div>
+        </div>
+    </main>
 </div>
+<script src="query.js"></script>
+<script src="../request.js"></script>
 </body>
 </html>

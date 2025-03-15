@@ -26,6 +26,9 @@ public class FileServiceImpl implements FileService {
     @Resource
     FileMapper fileMapper;
 
+    @Resource
+    QueryServiceImpl queryServiceImpl;
+
     @Override
     public List<GetFileVO> getFiles(GetFileDTO getFileDTO) {
         List<Long> idList = adminMapper.getUserIdsByUserName(getFileDTO.getCreator());
@@ -40,9 +43,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void editFiles(EditFileDTO editFileDTO) {
-        if(editFileDTO.getEpsilon() <= 0 || editFileDTO.getDelta() < 0){
-            throw new FileException("Epsilon must be positive and delta must be none negative!");
-        }
+        queryServiceImpl.handleUploadFile(editFileDTO.getId(), editFileDTO.getPrivacyBudget().doubleValue());
         fileMapper.editFile(editFileDTO);
     }
 
@@ -57,11 +58,11 @@ public class FileServiceImpl implements FileService {
             try{
                 if (file.exists()) {
                     if(!file.delete()){
-                        throw new FileException("Error occured while deleting file.");
+                        throw new FileException("Error occurred while deleting file.");
                     }
                 }
             } catch (Exception e) {
-                throw new FileException("Error occured while deleting file.");
+                throw new FileException("Error occurred while deleting file.");
             }
         }
         fileMapper.deleteBatchIds(ids);
@@ -69,9 +70,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void uploadFile(File file) {
-        if(file.getEpsilon() <= 0 || file.getDelta() < 0){
-            throw new FileException("Epsilon and delta must be greater than 0");
-        }
+        queryServiceImpl.handleUploadFile(file.getId(), file.getPrivacyBudget().doubleValue());
         fileMapper.insert(file);
     }
 

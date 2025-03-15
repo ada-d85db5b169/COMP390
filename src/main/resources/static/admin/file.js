@@ -75,11 +75,9 @@ function showNewModal() {
     document.getElementById('new-confirm').onclick = async () => {
         const fileInput = document.getElementById('file-upload');
         const privacyBudget = document.getElementById('new-privacyBudget').value;
-        const epsilon = document.getElementById('new-epsilon').value;
-        const delta = document.getElementById('new-delta').value;
         const permission = document.getElementById('new-permission').value;
 
-        if (!fileInput.files[0] || !privacyBudget || !epsilon || !permission) {
+        if (!fileInput.files[0] || !privacyBudget || !permission) {
             alert('All fields are required!');
             return;
         }
@@ -87,8 +85,6 @@ function showNewModal() {
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
         formData.append('privacyBudget', privacyBudget);
-        formData.append('epsilon', epsilon);
-        formData.append('delta', delta)
         formData.append('permission', permission);
 
         try {
@@ -99,7 +95,7 @@ function showNewModal() {
             const result = await response.json();
 
             if (result.code === 1) {
-                alert('File uploaded successfully');
+                alert('File uploaded success');
                 newModal.style.display = 'none';
                 loadFileData();
             } else {
@@ -133,8 +129,6 @@ async function handleEditFile() {
 
 function resetEditModal() {
     document.getElementById('edit-filename').value = '';
-    document.getElementById('edit-epsilon').value = '';
-    document.getElementById('edit-delta').value = '';
     document.getElementById('edit-privacyBudget').value = '';
     document.getElementById('edit-permission').value = 'NO';
 }
@@ -155,8 +149,6 @@ async function showEditModal(id){
 
             // 回显文件信息到表单
             document.getElementById('edit-filename').value = fileData.filename;
-            document.getElementById('edit-epsilon').value = fileData.epsilon;
-            document.getElementById('edit-delta').value = fileData.delta;
             document.getElementById('edit-privacyBudget').value = fileData.privacyBudget;
             document.getElementById('edit-permission').value = fileData.permission;
         } else {
@@ -169,12 +161,10 @@ async function showEditModal(id){
 
     document.getElementById('edit-confirm').onclick = async () => {
         const filename = document.getElementById('edit-filename').value.trim();
-        const epsilon = document.getElementById('edit-epsilon').value;
-        const delta = document.getElementById('edit-delta').value;
         const permission = document.getElementById('edit-permission').value;
         const privacyBudget = document.getElementById('edit-privacyBudget').value;
-        if(!filename || !epsilon || !permission || !privacyBudget){
-            alert("File name, epsilon, and permission cannot be empty!");
+        if(!filename || !permission || !privacyBudget){
+            alert("File name and permission cannot be empty!");
             return;
         }
         try {
@@ -183,11 +173,11 @@ async function showEditModal(id){
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, filename, epsilon, delta, permission, privacyBudget})
+                body: JSON.stringify({ id, filename, permission, privacyBudget})
             });
             const result = await response.json();
             if(result.code === 1){
-                alert('Edit successfully');
+                alert('Edit success');
                 document.getElementById('edit-modal').style.display = 'none';
                 loadFileData();
             } else {

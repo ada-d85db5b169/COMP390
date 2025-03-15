@@ -122,6 +122,29 @@ table th {
     background-color: #d0e8ff;
 }
 
+.privacy-budget-box {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+}
+
+.conditional-query {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f4f4f4;
+    display: none;
+}
+
+.parallel-query {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f4f4f4;
+    display: none;
+}
+
 .clickable {
     cursor: pointer;
     padding: 5px;

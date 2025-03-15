@@ -13,14 +13,14 @@ public class JwtUtil {
 
     public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
 
-        // 指定签名的时候使用的签名算法，也就是header那部分
+        // Set signature algorithm
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-        // 生成JWT的时间
+        // Time of expire
         long expMillis = System.currentTimeMillis() + ttlMillis;
         Date exp = new Date(expMillis);
 
-        // 设置jwt的body
+        // Set jwt body
         JwtBuilder builder = Jwts.builder()
                 // Set private claims
                 .setClaims(claims)
