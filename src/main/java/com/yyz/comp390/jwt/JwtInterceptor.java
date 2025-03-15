@@ -19,7 +19,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        log.info("\nJWT Interceptor preHandle\n");
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
@@ -34,7 +33,6 @@ public class JwtInterceptor implements HandlerInterceptor {
         try {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getSecretKey(), token);
             Long userId = Long.valueOf(claims.get("id").toString());
-            log.info("User id: {}", userId);
             BaseContext.setCurrentId(userId);
             return true;
         } catch (Exception ex) {

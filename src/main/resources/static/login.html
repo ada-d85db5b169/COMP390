@@ -7,7 +7,7 @@
     <script>
         async function handleLogin(event) {
             console.log('handleLogin function called')
-            event.preventDefault(); // 阻止表单默认提交行为
+            event.preventDefault();
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -43,7 +43,7 @@
                     alert(errorMessage);
                 }
                 else {
-                    alert("Unknown error.");
+                    alert(result.message);
                 }
             } catch (error) {
                 console.error('Network error:', error);
