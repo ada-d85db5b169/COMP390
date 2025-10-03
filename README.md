@@ -1,0 +1,5 @@
+Build a tool to perform analysis of data sets using differentially private algorithms, Typically, when analysing a dataset the first thing we do is have a look at a few rows to get a feel for the data. However users cannot do this for private data, so your tool must help them analyse the data in a privacy preservingway. Your tool should have a (small) selection of built-in algorithms to perform simple queries on data ingested into the system, The tool should allow a curator to upload a dataset and specify a privacy budgetit should then allow others to query the data, keeping track of a datasets privacy budget and preventfurtherrelease once it is exhausted.
+
+For example, the tool should allow the release of the average salary from a dataset of employee salariesby computing the average and then applying the Laplace mechanism, The dataset of employee salariesshould be considered private, but the average may be eligible for release in a privacy preserving way.
+
+Whilst the intended use of the system would be to process private data, all data used to test the systemshould be synthetic/generated or already public.
